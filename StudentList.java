@@ -6,13 +6,14 @@ public class StudentList {
 	public static void main(String[] args) {
 
 		if (args == null || args[0].length() != 1) {
-			System.out.println("Please provide a, r, ?, +, or c argument");
+            ShowUsage();
 			return;
 		}
-		String fileContents = LoadData("students.txt");
+		Constants obj = new Constants();
+		String fileContents = LoadData(Constants.StudentList);
 
 		// Check arguments
-		if (args[0].equals("a")) {
+		if (args[0].equals(obj.ShowAll)) {
 
 			System.out.println("Loading data ...");
 
@@ -29,7 +30,7 @@ public class StudentList {
 
 		}
 
-		else if (args[0].equals("r")) {
+		else if (args[0].equals(obj.ShowRandom)) {
 
 			System.out.println("Loading data ...");
 
@@ -45,7 +46,7 @@ public class StudentList {
 
 		}
 
-		else if (args[0].contains("+")) {
+		else if (args[0].contains(obj.AddEntry)) {
 
 			System.out.println("Loading data ...");
 
@@ -67,7 +68,7 @@ public class StudentList {
 
 		}
 
-		else if (args[0].contains("?")) {
+		else if (args[0].contains(obj.FindEntry)) {
 
 			System.out.println("Loading data ...");
 
@@ -89,7 +90,7 @@ public class StudentList {
 
 		}
 
-		else if (args[0].contains("c")) {
+		else if (args[0].contains(obj.ShowCount)) {
 
 			System.out.println("Loading data ...");
 
@@ -118,6 +119,9 @@ public class StudentList {
 			System.out.println("Data Loaded.");
 
 		}
+		else {
+			ShowUsage();
+		}
 	}
 	public static String LoadData(String fileName) {
 		BufferedReader fileStream = null;
@@ -135,6 +139,9 @@ public class StudentList {
 			throw new RuntimeException(e);
 		}
 		return reader;
+	}
+	static void ShowUsage() {
+		System.out.println("Please provide a, r, ?, + or c as argument");
 	}
 
 }
