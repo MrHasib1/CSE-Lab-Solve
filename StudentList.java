@@ -9,6 +9,7 @@ public class StudentList {
 			System.out.println("Please provide a, r, ?, +, or c argument");
 			return;
 		}
+		String fileContents = LoadData("students.txt");
 
 		// Check arguments
 		if (args[0].equals("a")) {
@@ -16,11 +17,7 @@ public class StudentList {
 			System.out.println("Loading data ...");
 
 			try {
-				BufferedReader fileStream = new BufferedReader(
-						new InputStreamReader(
-								new FileInputStream("students.txt")));
-				String reader = fileStream.readLine();
-				String words[] = reader.split(",");
+				String words[] = fileContents.split(",");
 				for (String word : words) {
 					System.out.println(word);
 				}
@@ -37,11 +34,7 @@ public class StudentList {
 			System.out.println("Loading data ...");
 
 			try {
-				BufferedReader fileStream = new BufferedReader(
-						new InputStreamReader(
-								new FileInputStream("students.txt")));
-				String reader = fileStream.readLine();
-				String words[] = reader.split(",");
+				String words[] = fileContents.split(",");
 				Random random = new Random();
 				int randomIndex = random.nextInt(0, words.length);
 				System.out.println(words[randomIndex]);
@@ -79,11 +72,7 @@ public class StudentList {
 			System.out.println("Loading data ...");
 
 			try {
-				BufferedReader fileStream = new BufferedReader(
-						new InputStreamReader(
-								new FileInputStream("students.txt")));
-				String reader = fileStream.readLine();
-				String words[] = reader.split(",");
+				String words[] = fileContents.split(",");
 				boolean done = false;
 				String argValue = args[0].substring(1);
 				for (int idx = 0; idx < words.length && !done; idx++) {
@@ -105,11 +94,7 @@ public class StudentList {
 			System.out.println("Loading data ...");
 
 			try {
-				BufferedReader fileStream = new BufferedReader(
-						new InputStreamReader(
-								new FileInputStream("students.txt")));
-				String reader = fileStream.readLine();
-				char characters[] = reader.toCharArray();
+				char characters[] = fileContents.toCharArray();
 				boolean in_word = false;
 				int count = 0;
 
@@ -134,4 +119,22 @@ public class StudentList {
 
 		}
 	}
+	public static String LoadData(String fileName) {
+		BufferedReader fileStream = null;
+		try {
+			fileStream = new BufferedReader(
+					new InputStreamReader(
+							new FileInputStream("students.txt")));
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+		String reader = null;
+		try {
+			reader = fileStream.readLine();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return reader;
+	}
+
 }
